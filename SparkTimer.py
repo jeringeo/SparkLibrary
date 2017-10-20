@@ -10,3 +10,5 @@ def startClock(tag=None):
 def printElapsedTime(tag = None):
     if(tag==None): tag =''
     print(tag,' ',round((time.time()-startTime)*1000000)/1000000)
+
+#add a function with gives cumulative time for a key

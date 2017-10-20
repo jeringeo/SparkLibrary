@@ -2,7 +2,7 @@ from __future__ import division
 import cv2 as opencv
 import hashlib
 import numpy as np
-import SparkMisc
+import SparkHashing
 import  os
 
 class SparkVideoReader:
@@ -25,7 +25,7 @@ class SparkVideoReader:
         self.width = int(cap.get(opencv.CAP_PROP_FRAME_WIDTH))
         self.height = int(cap.get(opencv.CAP_PROP_FRAME_HEIGHT))
         self.fps = cap.get(opencv.CAP_PROP_FPS)
-        self.md5Sum = SparkMisc.getHashOfFile(fileName)
+        self.md5Sum = SparkHashing.getHashOfFile(fileName)
 
     def getTotalFrames(self):
         return self.nrFrames
