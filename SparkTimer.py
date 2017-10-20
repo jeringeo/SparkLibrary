@@ -11,4 +11,4 @@ def printElapsedTime(tag = None):
     if(tag==None): tag =''
     print(tag,' ',round((time.time()-startTime)*1000000)/1000000)
 
-#add a function which gives cumulative time for a key, so that it can act as a profiler
+#add a function which gives cumulative time for a key, so that it can act as a profiler.
