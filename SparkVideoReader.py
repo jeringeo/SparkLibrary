@@ -33,11 +33,16 @@ class SparkVideoReader:
     def getSize(self):
         return self.height, self.width
 
-    def getFrame(self,frameIndex):
+    def getFrame(self,frameIndex,lock=None):
+        if(lock is not None):
+            lock.acquire()
         if(int(self.captureAgent.get(opencv.CAP_PROP_POS_FRAMES))!=frameIndex):
           self.captureAgent.set(1,frameIndex)
 
         ret, frame = self.captureAgent.read()
+
+        if(lock is not None):
+            lock.release()
         #frame = convertToGray(frame)
         return frame
 
