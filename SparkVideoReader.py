@@ -33,18 +33,25 @@ class SparkVideoReader:
     def getSize(self):
         return self.height, self.width
 
-    def getFrame(self,frameIndex,lock=None):
+    def getFrame(self,frameIndex, gray = False, lock=None):
         if(lock is not None):
             lock.acquire()
         if(int(self.captureAgent.get(opencv.CAP_PROP_POS_FRAMES))!=frameIndex):
           self.captureAgent.set(1,frameIndex)
 
         ret, frame = self.captureAgent.read()
+        if(gray):
+            frame = convertToGray(frame)
 
         if(lock is not None):
             lock.release()
         #frame = convertToGray(frame)
         return frame
+
+    def getCroppedFrame(self,frameIndex,cropBox, gray = False, lock=None):
+        frame = self.getFrame(frameIndex,gray=gray,lock=lock)
+        cropFrame = frame[cropBox[0,0]:cropBox[0,1]+1,cropBox[1,0]:cropBox[1,1]+1]
+        return cropFrame
 
     def getChannels(self):
         frame = self.getFrame(0)
